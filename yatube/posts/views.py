@@ -1,6 +1,8 @@
 # posts/views.py
 from django.shortcuts import render, get_object_or_404
+
 from .models import Post, Group
+
 
 def index(request):
     title = 'Последние обновления на сайте'
@@ -11,7 +13,8 @@ def index(request):
         'text': text,
         'posts': posts,
     }
-    return render(request, 'posts/index.html', context) 
+    return render(request, 'posts/index.html', context)
+
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
@@ -25,6 +28,7 @@ def group_posts(request, slug):
         'text': text,
     }
     return render(request, 'posts/group_list.html', context)
+
 
 def show_base_template(request):
     template = 'base.html'
