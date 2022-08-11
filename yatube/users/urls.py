@@ -17,7 +17,8 @@ urlpatterns = [
         name='login'
     ),
     path(
-        '/password_change/',
-        PasswordChangeView.as_view(template_name='users/password_change.html')
+        'password_change/',
+        PasswordChangeView.as_view(template_name='users/password_change.html'),
+        name='password_change'
     )
 ]
