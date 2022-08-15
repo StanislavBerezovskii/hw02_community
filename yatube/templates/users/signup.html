@@ -1,17 +1,17 @@
-<!-- templates/users/signup.html -->
-
 {% extends "base.html" %}
-{% block title %}Зарегистрироваться{% endblock %}
+{% block title %}
+    <title>Зарегистрироваться</title>
+{% endblock %}
 {% block content %}
   <div class="row justify-content-center">
     <div class="col-md-8 p-5">
       <div class="card">
         <div class="card-header">Зарегистрироваться</div>
           <div class="card-body">
-          {% load user_filters %} {# Загружаем фильтры #}
+          {% load user_filters %}
               {% if form.errors %}
-                  {% for field in form %} 
-                    {% for error in field.errors %}            
+                  {% for field in form %}
+                    {% for error in field.errors %}
                       <div class="alert alert-danger">
                         {{ error|escape }}
                       </div>
@@ -27,8 +27,7 @@
               <form method="post" action="{% url 'users:signup' %}">
               {% csrf_token %}
 
-              {# Выводим поля в цикле, по отдельности #}
-              {% for field in form %} 
+              {% for field in form %}
                 <div class="form-group row my-3">
                   <label for="{{ field.id_for_label }}">
                     {{ field.label }}
@@ -36,10 +35,9 @@
                         <span class="required text-danger">*</span>
                       {% endif %}
                   </label>
-                  {# К полю ввода добавляем атрибут class #}
-                  {{ field|addclass:'form-control' }} 
+                  {{ field|addclass:'form-control' }}
                     {% if field.help_text %}
-                      <small 
+                      <small
                          id="{{ field.id_for_label }}-help"
                          class="form-text text-muted"
                       >
