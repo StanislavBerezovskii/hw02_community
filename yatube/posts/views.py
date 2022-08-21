@@ -51,8 +51,10 @@ def profile(request, username):
     return render(request, 'posts/profile.html', context)
 
 
+@login_required
 def post_detail(request, post_id):
-    # Здесь код запроса к модели и создание словаря контекста
+    this_post = get_object_or_404(Post, id=post_id)
     context = {
+        'this_post': this_post,
     }
     return render(request, 'posts/post_detail.html', context)
