@@ -54,7 +54,9 @@ def profile(request, username):
 @login_required
 def post_detail(request, post_id):
     this_post = get_object_or_404(Post, id=post_id)
+    author_post_count = this_post.author.posts.count()
     context = {
         'this_post': this_post,
+        'author_post_count': author_post_count,
     }
     return render(request, 'posts/post_detail.html', context)
