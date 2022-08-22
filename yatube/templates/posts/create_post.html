@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Новый пост{% endblock %}
 {% block content %}
-<form method='post'>
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-8 p-5">
@@ -10,27 +9,28 @@
             Новый пост             
           </div>
           <div class="card-body">        
-            <form method="post" action="../posts/create_post.html">
-              <input type="hidden" name="csrfmiddlewaretoken" value="">            
+            <form method="post" action="{% url 'posts:post_create' %}">
+              {% csrf_token %}            
               <div class="form-group row my-3 p-3">
                 <label for="id_text">
                   Текст поста                  
-                  <span class="required text-danger" >*</span>                  
+                  <span class="required text-danger" >*</span>
+                  <span><font color="red" size="4">{{ error }}</font></span>                   
                 </label>
-                {% csrf_token %}
-                {{ form.text }}          
+                <textarea name="text" cols="40" rows="10" class="form-control" required id="id_text">
+                </textarea>                
                 <small id="id_text-help" class="form-text text-muted">
                   Текст нового поста
-                </small>                  
+                </small>                 
               </div>            
               <div class="form-group row my-3 p-3">
                 <label for="id_group">
                   Группа                  
                 </label>
                 <select name="group" class="form-control" id="id_group">
-                  {% for group in form.group %}
-                  <option value="">{{ group }}</option>
-                  {% endfor %}
+                  <option value="">{% for group in form.group %}
+                    {{ group }}
+                    {% endfor %}
                 </select>
                 <small id="id_group-help" class="form-text text-muted">
                   Группа, к которой будет относиться пост

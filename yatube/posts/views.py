@@ -66,6 +66,7 @@ def post_detail(request, post_id):
 
 @login_required
 def post_create(request):
+    error = ''
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
@@ -73,8 +74,11 @@ def post_create(request):
             form.author = request.user
             form.save()
             return redirect(f'/profile/{form.author.username}/')
+        else:
+            error = 'Поле обязательно для заполнения!'
     form = PostForm()
     context = {
         'form': form,
+        'error': error,
     }
     return render(request, 'posts/create_post.html', context)
